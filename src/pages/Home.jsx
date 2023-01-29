@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { Header } from "../components/Header";
 import { url } from "../const";
-import "./home.css";
+import "./home.scss";
 
 export const Home = () => {
   const [isDoneDisplay, setIsDoneDisplay] = useState("todo"); // todo->未完了 done->完了
@@ -124,10 +125,11 @@ export const Home = () => {
 
 // 表示するタスク
 const Tasks = (props) => {
+  
   const { tasks, selectListId, isDoneDisplay } = props;
   if (tasks === null) return <></>;
 
-  if (isDoneDisplay == "done") {
+  if (isDoneDisplay === "done") {
     return (
       <ul>
         {tasks
@@ -171,3 +173,4 @@ const Tasks = (props) => {
     </ul>
   );
 };
+
