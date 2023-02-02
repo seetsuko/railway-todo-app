@@ -9,6 +9,7 @@ import { url } from "../const";
 import "./signUp.scss";
 
 export const SignUp = () => {
+  console.log(url);
   const navigation = useNavigate();
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
@@ -26,9 +27,9 @@ export const SignUp = () => {
       name: name,
       password: password,
     };
-
+  
     axios
-      .post(`${url}/users`, data)
+      .post(`${url}/users`, data,)
       .then((res) => {
         const token = res.data.token;
         dispatch(signIn());
