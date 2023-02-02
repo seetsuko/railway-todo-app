@@ -13,18 +13,22 @@ export const EditTask = () => {
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [isDone, setIsDone] = useState();
+  const [limit, setLimit] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
+  const handleLimitChange = (e) => setLimit(e.target.value);
+  
   const onUpdateTask = () => {
     console.log(isDone);
     const data = {
       title: title,
       detail: detail,
       done: isDone,
+      limit: limit+"Z",
     };
-
+    console.log(data);
     axios
       .put(`${url}/lists/${listId}/tasks/${taskId}`, data, {
         headers: {
@@ -33,7 +37,7 @@ export const EditTask = () => {
       })
       .then((res) => {
         console.log(res.data);
-        navigation.push("/");
+        navigation("/");
       })
       .catch((err) => {
         setErrorMessage(`更新に失敗しました。${err}`);
@@ -48,7 +52,7 @@ export const EditTask = () => {
         },
       })
       .then(() => {
-        navigation.push("/");
+        navigation("/");
       })
       .catch((err) => {
         setErrorMessage(`削除に失敗しました。${err}`);
@@ -67,6 +71,8 @@ export const EditTask = () => {
         setTitle(task.title);
         setDetail(task.detail);
         setIsDone(task.done);
+        // 期限inputのvalueに入れるため、時間の文字列を元の形に戻す
+        setLimit(task.limit.replace("Z",""))
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -98,6 +104,16 @@ export const EditTask = () => {
             value={detail}
           />
           <br />
+          {/* 期限日時を設定 */}
+          <label>期限</label>
+          <br />
+          <input
+            type="datetime-local"
+            step="1"
+            value={limit}
+            onChange={handleLimitChange}
+            className="limit-date"
+            />
           <div>
             <input
               type="radio"

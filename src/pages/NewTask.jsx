@@ -11,19 +11,24 @@ export const NewTask = () => {
   const [lists, setLists] = useState([]);
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
+  const [limit, setLimit] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
-  const navigaation = useNavigate();
+  const navigation = useNavigate();
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
+  const handleLimitChange = (e) => setLimit(e.target.value);
+
+  
   const onCreateTask = () => {
     const data = {
       title: title,
       detail: detail,
       done: false,
+      limit: limit+"Z",
     };
-
+    console.log(data);
     axios
       .post(`${url}/lists/${selectListId}/tasks`, data, {
         headers: {
@@ -31,7 +36,7 @@ export const NewTask = () => {
         },
       })
       .then(() => {
-        navigaation.push("/");
+        navigation("/");
       })
       .catch((err) => {
         setErrorMessage(`タスクの作成に失敗しました。${err}`);
@@ -89,7 +94,18 @@ export const NewTask = () => {
             onChange={handleDetailChange}
             className="new-task-detail"
           />
+          {/* 期限日時を設定 */}
+          <br /> 
+          <label>期限</label>
           <br />
+          <input
+            type="datetime-local"
+            step="1"
+            onChange={handleLimitChange}
+            className="limit-date"
+            />
+
+          <br/>
           <button
             type="button"
             className="new-task-button"

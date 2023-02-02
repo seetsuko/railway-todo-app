@@ -11,6 +11,8 @@ export const Home = () => {
   const [lists, setLists] = useState([]);
   const [selectListId, setSelectListId] = useState();
   const [tasks, setTasks] = useState([]);
+  // 期限日時表示と残り日時を表示するためのstate
+  const [limit,setLimit] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
@@ -124,7 +126,7 @@ export const Home = () => {
 
 // 表示するタスク
 const Tasks = (props) => {
-  
+  console.log(props)
   const { tasks, selectListId, isDoneDisplay } = props;
   if (tasks === null) return <></>;
 
@@ -144,6 +146,9 @@ const Tasks = (props) => {
                 {task.title}
                 <br />
                 {task.done ? "完了" : "未完了"}
+                <br />
+                {task.limit}
+                <br />
               </Link>
             </li>
           ))}
@@ -166,6 +171,9 @@ const Tasks = (props) => {
               {task.title}
               <br />
               {task.done ? "完了" : "未完了"}
+              <br />
+              {task.limit}
+              <br />
             </Link>
           </li>
         ))}
