@@ -113,6 +113,7 @@ export const EditTask = () => {
             value={limit}
             onChange={handleLimitChange}
             className="limit-date"
+            required
             />
           <div>
             <input

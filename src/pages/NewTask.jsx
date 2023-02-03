@@ -103,6 +103,7 @@ export const NewTask = () => {
             step="1"
             onChange={handleLimitChange}
             className="limit-date"
+            required
             />
 
           <br/>

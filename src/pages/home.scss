@@ -54,7 +54,7 @@ $max:100%;
     }
     .task-item {
       list-style-type: none;
-      height: 90px;
+      height: $max;
       width: calc($max - 25px);
       background-color: #f5f5f5;
       padding-left: 25px;

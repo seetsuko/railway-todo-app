@@ -5,14 +5,14 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import { url } from "../const";
 import "./home.scss";
+import dayjs from "dayjs";
+
 
 export const Home = () => {
   const [isDoneDisplay, setIsDoneDisplay] = useState("todo"); // todo->未完了 done->完了
   const [lists, setLists] = useState([]);
   const [selectListId, setSelectListId] = useState();
   const [tasks, setTasks] = useState([]);
-  // 期限日時表示と残り日時を表示するためのstate
-  const [limit,setLimit] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
@@ -126,8 +126,28 @@ export const Home = () => {
 
 // 表示するタスク
 const Tasks = (props) => {
-  console.log(props)
   const { tasks, selectListId, isDoneDisplay } = props;
+  
+  // 残り日時を表示する
+  const time = (limit) =>{
+      const now = new Date(dayjs().format('YYYY-MM-DDTHH:mm:ss')).getTime();
+      const timeLimit = new Date(limit.replace(/[A-Z]/g," ")).getTime();
+      const diffMilliSec = timeLimit - now;
+      const day = Math.floor(diffMilliSec / 1000 / 60 / 60 / 24);
+      const hours = Math.floor(diffMilliSec / 1000 / 60 / 60 )%24;
+      const minits =  Math.floor(diffMilliSec / 1000 /60) % 60;
+      const sec = Math.floor(diffMilliSec / 1000 ) % 60;
+      console.log(diffMilliSec)
+      if(diffMilliSec >= 0){
+        return(  
+          "あと"+day+"日"+hours+"時間"+minits+"分"+sec+"秒")
+      }else{
+        return(
+          "期限が過ぎています"
+        )
+      }
+  }
+
   if (tasks === null) return <></>;
 
   if (isDoneDisplay === "done") {
@@ -147,14 +167,13 @@ const Tasks = (props) => {
                 <br />
                 {task.done ? "完了" : "未完了"}
                 <br />
-                {task.limit}
-                <br />
               </Link>
             </li>
           ))}
       </ul>
     );
   }
+
 
   return (
     <ul>
@@ -172,7 +191,9 @@ const Tasks = (props) => {
               <br />
               {task.done ? "完了" : "未完了"}
               <br />
-              {task.limit}
+              {"期限："+task.limit.replace(/[A-Z]/g," ")+"まで"}
+              <br/>
+              {time(task.limit)}
               <br />
             </Link>
           </li>
