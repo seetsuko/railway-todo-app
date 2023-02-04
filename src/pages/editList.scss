@@ -1,4 +1,5 @@
 @charset "utf-8";
+@import "/src/responsive.scss";
 $main-color: #ff3333;
 @mixin box1{
     width: 80px;

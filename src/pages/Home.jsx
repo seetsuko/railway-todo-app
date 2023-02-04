@@ -16,7 +16,8 @@ export const Home = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
-  useEffect(() => {
+
+    useEffect(() => {
     axios
       .get(`${url}/lists`, {
         headers: {
@@ -64,6 +65,8 @@ export const Home = () => {
       .catch((err) => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`);
       });
+    
+    
   };
   return (
     <div>
@@ -84,15 +87,20 @@ export const Home = () => {
               </p>
             </div>
           </div>
-          <ul className="list-tab">
+          <ul className="list-tab" role="tablist" aria-label="リスト一覧">
             {lists.map((list, key) => {
               const isActive = list.id === selectListId;
               return (
                 <li
+                  tabIndex={0}
+                  aria-label="リスト"
+                  role="tab"
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
                   onClick={() => handleSelectList(list.id)}
-                >
+                  onKeyDown={() => handleSelectList(list.id)}  
+                  onKeyUp={() => handleSelectList(list.id)}  
+                  >
                   {list.title}
                 </li>
               );
@@ -140,7 +148,9 @@ const Tasks = (props) => {
       console.log(diffMilliSec)
       if(diffMilliSec >= 0){
         return(  
-          "あと"+day+"日"+hours+"時間"+minits+"分"+sec+"秒")
+          "あと"+day+"日と"+hours+"時間"
+          // +minits+"分"+sec+"秒"
+          )
       }else{
         return(
           "期限が過ぎています"
