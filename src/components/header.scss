@@ -10,11 +10,24 @@ $main-color: #ffffff;
   color: $main-color;
   display: flex;
   justify-content: space-between;
+  
+  a{
+    text-decoration: none;
+    color: #fff;
+    @include sp{
+      margin: auto 0 auto 15px;
+    }
+  }
+  
 
   .sign-out-button {
     color: $main-color;
     margin: auto 25px auto auto;
+    @include sp {
+      background-color: #001133;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 20px 8px 20px;
+    }
   }
 }
-
-

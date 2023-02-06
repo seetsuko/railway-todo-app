@@ -4,12 +4,19 @@
 .new-task {
   width: 1000px;
   margin: 0 auto;
+  @include sp{
+    width: 90%;
+    margin-top: 12px;
+  }
 
   .error-message {
     color: #ff3333;
   }
   .new-task-form {
     color: #555555;
+    @include sp{
+      margin-top: 30px;
+    }
     
     .new-task-select-list{
       width: 300px;
@@ -28,6 +35,7 @@
       width: 80px;
       height: 40px;
       border-radius: 5px;
+      margin-top: 20px;
     }
   }
 }

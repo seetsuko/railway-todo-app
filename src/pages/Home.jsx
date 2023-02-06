@@ -201,10 +201,11 @@ const Tasks = (props) => {
               <br />
               {task.done ? "完了" : "未完了"}
               <br />
-              {"期限："+task.limit.replace(/[A-Z]/g," ")+"まで"}
+              <p>{"期限："+task.limit.replace(/[A-Z]/g," ")+"まで"}
               <br/>
               {time(task.limit)}
               <br />
+              </p>
             </Link>
           </li>
         ))}

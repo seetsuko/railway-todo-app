@@ -13,17 +13,27 @@ $main-color:#ff3333;
 .edit-task {
   width: 1000px;
   margin: 0 auto;
+  @include sp{
+    width: 90%;
+    margin-top: 12px;
+  }
   
   .error-message {
     color: $main-color;
   }
   .edit-task-form {
     color: #555555;
+    @include sp{
+      margin-top: 30px;
+    }
 
-    .edit-task-title,
-    .edit-task-detail {
+    .edit-task-title{
       width: 300px;
       margin-bottom: 25px;
+    }
+    .edit-task-detail {
+      @extend .edit-task-title;
+      height: 80px;
     }
     .delete-task-button {
       color: $main-color;

@@ -9,6 +9,7 @@ import { signIn } from "../authSlice";
 import { url } from "../const";
 
 export const SignIn = () => {
+console.log(url);
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigaation = useNavigate();

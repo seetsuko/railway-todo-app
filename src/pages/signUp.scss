@@ -4,6 +4,10 @@
 .signup {
   width: 500px;
   margin: 0 auto;
+  @include sp{
+    width: 90%;
+    margin-top: 12px;
+  }
 
   .error-message {
     color: #ff3333;
@@ -11,12 +15,19 @@
   .signup-form {
     margin: 25px 0;
     color: #555555;
+    @include sp{
+      text-align: center;     
+    }
 
     .email-input{
       width: 100%;
       font-size: large;
       height: 30px;
       margin-bottom: 25px;
+      @include sp{
+        width: 90%;
+        font-size: 14px;
+      }
     }
     .name-input{
       @extend .email-input;

@@ -4,13 +4,23 @@
 .new-list {
   width: 1000px;
   margin: 0 auto;
+  @include sp{
+    width: 90%;
+    margin-top: 12px;
+  }
 
   .new-list-form {
     color: #555555;
+    @include sp{
+      margin-top: 30px;
+    }
 
     .new-list-title {
     width: 300px;
     margin-bottom: 25px;
+    @include sp{
+      font-size: 16px;
+    }
     }
     .new-list-button {
     background-color: #242f9b;
