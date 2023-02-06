@@ -17,6 +17,9 @@ $main-color: #ffffff;
     @include sp{
       margin: auto 0 auto 15px;
     }
+    @include tab{
+      margin: 15px;
+    }
   }
   
 

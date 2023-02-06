@@ -1,7 +1,7 @@
 $tab: 980px; // タブレット
 $sp: 480px;  // スマートフォン
 
-@mixin pc{
+@mixin tab{
     @media (max-width:($tab)) {
         @content;
     }

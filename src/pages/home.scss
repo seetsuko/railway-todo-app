@@ -9,6 +9,9 @@ $max:100%;
   @include sp{
     width: 90%;
   }
+  @include tab{
+    width: 90%;
+  }
 
   .error-message {
     color: #ff3333;

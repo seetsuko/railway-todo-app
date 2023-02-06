@@ -8,6 +8,11 @@
     width: 90%;
     margin-top: 12px;
   }
+  @include tab{
+    width: 90%;
+    margin-top: 30px;
+    text-align: center;
+  }
 
   .error-message {
     color: #ff3333;
@@ -17,10 +22,16 @@
     @include sp{
       margin-top: 30px;
     }
+    @include tab{
+      margin-top: 30px;
+    }
     
     .new-task-select-list{
       width: 300px;
       margin-bottom: 25px;
+      @include tab{
+        padding: 8px
+      }
     }
     .new-task-title{
       @extend .new-task-select-list;
