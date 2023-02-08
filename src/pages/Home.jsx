@@ -109,9 +109,11 @@ export const Home = () => {
           <div className="tasks">
             <div className="tasks-header">
               <h2>タスク一覧</h2>
-              <Link to="/task/new">タスク新規作成</Link>
             </div>
             <div className="display-select-wrapper">
+              <p>
+              <Link to="/task/new">タスク新規作成</Link>
+              </p>
               <select
                 onChange={handleIsDoneDisplayChange}
                 className="display-select"
