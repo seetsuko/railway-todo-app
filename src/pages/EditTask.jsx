@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import { url } from "../const";
 import { useNavigate, useParams } from "react-router-dom";
 import "./editTask.scss";
+import dayjs from "dayjs";
 
 export const EditTask = () => {
   const navigation = useNavigate();
@@ -18,7 +19,7 @@ export const EditTask = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
-  const handleLimitChange = (e) => setLimit(e.target.value);
+  const handleLimitChange = (e) => setLimit(dayjs(e.target.value).format('YYYY-MM-DDTHH:mm:ss[Z]'));
   
   const onUpdateTask = () => {
     console.log(isDone);
@@ -26,7 +27,7 @@ export const EditTask = () => {
       title: title,
       detail: detail,
       done: isDone,
-      limit: limit+"Z",
+      limit: limit
     };
     console.log(data);
     axios
@@ -71,8 +72,7 @@ export const EditTask = () => {
         setTitle(task.title);
         setDetail(task.detail);
         setIsDone(task.done);
-        // 期限inputのvalueに入れるため、時間の文字列を元の形に戻す
-        setLimit(task.limit.replace("Z",""))
+        setLimit(task.limit)
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -110,7 +110,7 @@ export const EditTask = () => {
           <input
             type="datetime-local"
             step="1"
-            value={limit}
+            value={dayjs(limit).format('YYYY-MM-DDTHH:mm:ss')}
             onChange={handleLimitChange}
             className="limit-date"
             required

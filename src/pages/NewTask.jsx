@@ -5,6 +5,7 @@ import { url } from "../const";
 import { Header } from "../components/Header";
 import "./newTask.scss";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
@@ -18,7 +19,7 @@ export const NewTask = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
-  const handleLimitChange = (e) => setLimit(e.target.value);
+  const handleLimitChange = (e) => setLimit(dayjs(e.target.value).format('YYYY-MM-DDTHH:mm:ss[Z]'));
 
   
   const onCreateTask = () => {
@@ -26,7 +27,7 @@ export const NewTask = () => {
       title: title,
       detail: detail,
       done: false,
-      limit: limit+"Z",
+      limit: limit,
     };
     console.log(data);
     axios

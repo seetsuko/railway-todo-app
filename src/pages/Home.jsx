@@ -93,13 +93,13 @@ export const Home = () => {
               return (
                 <li
                   tabIndex={0}
-                  aria-label="リスト"
                   role="tab"
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
-                  onClick={() => handleSelectList(list.id)}
-                  onKeyDown={() => handleSelectList(list.id)}  
-                  onKeyUp={() => handleSelectList(list.id)}  
+                  onClick={() => handleSelectList(list.id)}  
+                  onKeyDown={(event) => {
+                    if(event.key === 'Enter'){handleSelectList(list.id)}
+                  }}  
                   >
                   {list.title}
                 </li>
@@ -140,24 +140,20 @@ const Tasks = (props) => {
   
   // 残り日時を表示する
   const time = (limit) =>{
-      const now = new Date(dayjs().format('YYYY-MM-DDTHH:mm:ss')).getTime();
-      const timeLimit = new Date(limit.replace(/[A-Z]/g," ")).getTime();
-      const diffMilliSec = timeLimit - now;
-      const day = Math.floor(diffMilliSec / 1000 / 60 / 60 / 24);
-      const hours = Math.floor(diffMilliSec / 1000 / 60 / 60 )%24;
-      const minits =  Math.floor(diffMilliSec / 1000 /60) % 60;
-      const sec = Math.floor(diffMilliSec / 1000 ) % 60;
-      console.log(diffMilliSec)
-      if(diffMilliSec >= 0){
-        return(  
-          "あと"+day+"日と"+hours+"時間"
-          // +minits+"分"+sec+"秒"
-          )
-      }else{
-        return(
-          "期限が過ぎています"
+    const now = dayjs().format('YYYY-MM-DDTHH:mm:ss[Z]')
+    const timeLimit = dayjs(limit).format('YYYY-MM-DDTHH:mm:ss[Z]')
+    const hours = dayjs(timeLimit).diff(dayjs(now), 'h')%24
+    const day = dayjs(timeLimit).diff(dayjs(now), 'd')
+  
+    if( hours >= 0){
+      return(  
+        "あと"+day+"日と"+hours+"時間"
         )
-      }
+    }else{
+      return(
+        "期限が過ぎています"
+      )
+    }
   }
 
   if (tasks === null) return <></>;
@@ -203,7 +199,7 @@ const Tasks = (props) => {
               <br />
               {task.done ? "完了" : "未完了"}
               <br />
-              <p>{"期限："+task.limit.replace(/[A-Z]/g," ")+"まで"}
+              <p>{"期限："+dayjs(task.limit).format('YYYY-MM-DD HH:mm:ss')+"まで"}
               <br/>
               {time(task.limit)}
               <br />
